@@ -1,0 +1,22 @@
+{
+  "name": "rsa_elgamal_gui",
+  "version": "1.0.0",
+  "description": "GUI for rsa and elgamal",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/musajoshua/rsa_elgamal_gui.git"
+  },
+  "author": "musa joshua",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/musajoshua/rsa_elgamal_gui/issues"
+  },
+  "homepage": "https://github.com/musajoshua/rsa_elgamal_gui#readme",
+  "dependencies": {
+    "file-saver": "^2.0.2"
+  }
+}

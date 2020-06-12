@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>RSA Cryptosystem</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+		/>
+		<link
+			href="https://fonts.googleapis.com/icon?family=Material+Icons"
+			rel="stylesheet"
+		/>
+	</head>
+	<style>
+		.home {
+			padding-top: 20px;
+		}
+		.txt_area {
+			width: 100%;
+			height: 300px;
+			resize: none;
+			overflow-y: scroll;
+		}
+		.txt_area1 {
+			width: 100%;
+			height: 2rem;
+			resize: none;
+			overflow-y: scroll;
+		}
+
+		.col.s6,
+		.col.s12 {
+			text-align: center;
+			margin: auto;
+		}
+
+		.not {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			background: none;
+			width: 80%;
+		}
+
+		/* .carde {} */
+
+		.btn-large {
+			width: 50%;
+		}
+	</style>
+
+	<body>
+		<div class="container">
+			<div class="row">
+				<a class="waves-effect waves-light home" href="./index.html"
+					><i class="material-icons left">keyboard_backspace</i
+					>Home</a
+				>
+
+				<div class="not">
+					<div class="carde">
+						<div class="col s6">
+							<div
+								id="file-holder"
+								class="col s12"
+								style="width: 100%; height: 300px;"
+							></div>
+							<div class="input-field col s12">
+								<form
+									enctype="multipart/form-data"
+									method="post"
+								>
+									<input
+										class="form-control"
+										id="plain_file"
+										type="file"
+									/>
+								</form>
+							</div>
+						</div>
+						<div class="col s6">
+							<div class="input-field col s12">
+								<textarea
+									id="encrypted_file"
+									class="txt_area"
+								></textarea>
+							</div>
+							<button
+								onclick="download()"
+								class="waves-effect waves-light btn-large s12"
+							>
+								<i class="material-icons right">save_alt</i
+								>Download
+							</button>
+						</div>
+						<div class="col s12">
+							<textarea
+								placeholder="Enter Public Keys"
+								id="public_key"
+								class="materialize-textarea txt_area1"
+							></textarea>
+						</div>
+						<div class="col s12">
+							<textarea
+								placeholder="Time Taken To Encrypt"
+								id="time_taken_to_encrypt"
+								class="materialize-textarea txt_area1"
+							></textarea>
+						</div>
+						<div class="col s3"></div>
+						<div class="col s6">
+							<button
+								class="waves-effect waves-light btn-large"
+								href="./generate_key.html"
+								onclick="submit()"
+							>
+								Encrypt
+							</button>
+						</div>
+						<div class="col s3"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script type="text/javascript" src="/eel.js"></script>
+		<script src="../node_modules/file-saver/src/FileSaver.js"></script>
+		<script src="./encrypt.js"></script>
+	</body>
+</html>
