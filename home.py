@@ -31,7 +31,6 @@ def rsa_decrypt(private_key, cipherString):
     n = private_key[0]
     e = private_key[1]
     private_key = (n, e)
-    print(private_key)
     plainString, time_taken_decrypt = RSA.decrypt(private_key, cipherString)
     return (plainString, time_taken_decrypt)
 

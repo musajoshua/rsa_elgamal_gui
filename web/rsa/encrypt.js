@@ -46,6 +46,14 @@ submit = async () => {
 	let reader = new FileReader();
 	reader.onload = async () => {
 		let dataURL = await reader.result;
+		// console.log(dataURL);
+		// var blob = new Blob([dataURL], {
+		// 	type: "data:image/png;base64",
+		// });
+		base_image = new Image();
+		base_image.src = dataURL;
+		// console.log(blob);
+		// saveAs(base_image, "try.png");
 		eel.rsa_encrypt(
 			public_keys,
 			dataURL

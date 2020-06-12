@@ -9,10 +9,12 @@ submit = async () => {
 		return;
 	}
 
+	// console.log(file);
+
 	let reader = new FileReader();
 	reader.onload = async () => {
 		let dataURL = await reader.result;
-		console.log(dataURL);
+		// console.log(dataURL);
 		eel.rsa_decrypt(
 			private_keys,
 			dataURL
@@ -20,8 +22,11 @@ submit = async () => {
 			console.log(data);
 			let cipher_string = data[0];
 			let time_taken = data[1];
-
-			// document.getElementById("time_taken_to_encrypt").value = time_taken;
+			var blob = new Blob([cipher_string], {
+				type: "text/plain;charset=utf-8",
+			});
+			saveAs(blob, "enc.jpg");
+			document.getElementById("time_taken_to_decrypt").value = time_taken;
 			// document.getElementById("encrypted_file").value = cipher_string;
 		});
 	};
