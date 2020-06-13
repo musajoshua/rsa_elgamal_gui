@@ -14,23 +14,28 @@ submit = async () => {
 	let reader = new FileReader();
 	reader.onload = async () => {
 		let dataURL = await reader.result;
-		// console.log(dataURL);
+		document.getElementById("textarea1").value = dataURL;
 		eel.rsa_decrypt(
 			private_keys,
 			dataURL
 		)((data) => {
-			console.log(data);
 			let cipher_string = data[0];
+			// console.log(cipher_string);
 			let time_taken = data[1];
+
+			console.log(cipher_string);
+
 			var blob = new Blob([cipher_string], {
-				type: "text/plain;charset=utf-8",
+				// type: "text/plain;charset=utf-8",
+				type: "image/png",
 			});
-			saveAs(blob, "enc.jpg");
+			saveAs(blob, "enc.png");
+
 			document.getElementById("time_taken_to_decrypt").value = time_taken;
 			// document.getElementById("encrypted_file").value = cipher_string;
 		});
 	};
-	reader.readAsDataURL(file);
+	reader.readAsText(file);
 	// let dd = await reader.result;
 	// console.log(dd);
 

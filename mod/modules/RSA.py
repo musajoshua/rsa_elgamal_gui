@@ -99,13 +99,13 @@ class RSA:
 
     @classmethod
     def decrypt(cls, pk, cipherFileString):
-        # cipherFileArray = list(map(int, cipherFileString.split("-")))
+        cipherFileArray = list(map(int, cipherFileString.split("-")))
         n, d = pk
         plain_hex_arr = []
         # Start Timer
         start_time = time()
-        for i, v in enumerate(cipherFileString):
-            val = pow(ord(v), d, n)
+        for i, v in enumerate(cipherFileArray):
+            val = pow(v, d, n)
             plain_hex_arr.append(val)
         end_time = time()
         # End Timer

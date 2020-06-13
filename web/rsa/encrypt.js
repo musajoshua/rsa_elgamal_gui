@@ -47,13 +47,18 @@ submit = async () => {
 	reader.onload = async () => {
 		let dataURL = await reader.result;
 		// console.log(dataURL);
-		// var blob = new Blob([dataURL], {
-		// 	type: "data:image/png;base64",
-		// });
-		base_image = new Image();
-		base_image.src = dataURL;
-		// console.log(blob);
-		// saveAs(base_image, "try.png");
+		// let dd = dataURL.substr(dataURL.indexOf(",") + 1);
+		// dataURL === dd ? console.log(true) : console.log(false);
+		// console.log(dd);
+		let fso = CreateObject("Scripting.FileSystemObject");
+		let s = fso.CreateTextFile("C:\test.txt", True);
+		s.writeline("HI");
+		s.writeline("Bye");
+		s.writeline("-----------------------------");
+		s.Close();
+		// let blob = new Blob([dataURL], { type: "application/octet-binary" });
+
+		// saveAs(blob, "plane.png");
 		eel.rsa_encrypt(
 			public_keys,
 			dataURL
@@ -65,20 +70,7 @@ submit = async () => {
 			document.getElementById("encrypted_file").value = cipher_string;
 		});
 	};
-	reader.readAsDataURL(file);
-	// let dd = await reader.result;
-	// console.log(dd);
-
-	// let fileURL = URL.createObjectURL(file);
-	// console.log(file);
-
-	// eel.rsa_encrypt(
-	// 	public_keys,
-	// 	file
-	// )((data) => {
-	// 	// alert(data);
-	// 	console.log(data);
-	// });
+	reader.readAsText(file);
 };
 
 download = () => {
@@ -89,5 +81,5 @@ download = () => {
 	}
 
 	var blob = new Blob([cipher_string], { type: "text/plain;charset=utf-8" });
-	saveAs(blob, "enc.enc");
+	saveAs(blob, "enc.txt");
 };
