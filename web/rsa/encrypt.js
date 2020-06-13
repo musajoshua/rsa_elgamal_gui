@@ -50,15 +50,9 @@ submit = async () => {
 		// let dd = dataURL.substr(dataURL.indexOf(",") + 1);
 		// dataURL === dd ? console.log(true) : console.log(false);
 		// console.log(dd);
-		let fso = CreateObject("Scripting.FileSystemObject");
-		let s = fso.CreateTextFile("C:\test.txt", True);
-		s.writeline("HI");
-		s.writeline("Bye");
-		s.writeline("-----------------------------");
-		s.Close();
-		// let blob = new Blob([dataURL], { type: "application/octet-binary" });
+		let blob = new Blob([dataURL], { type: "application/octet-binary" });
 
-		// saveAs(blob, "plane.png");
+		saveAs(blob, "plane.png");
 		eel.rsa_encrypt(
 			public_keys,
 			dataURL
