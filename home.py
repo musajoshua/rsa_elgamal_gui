@@ -29,8 +29,8 @@ def rsa_encrypt(public_key, plainString):
 def rsa_decrypt(private_key, cipherString):
     # plainString = FileReader.readPlainFile(file)
     n = private_key[0]
-    e = private_key[1]
-    private_key = (n, e)
+    d = private_key[1]
+    private_key = (n, d)
     plainString, time_taken_decrypt = RSA.decrypt(private_key, cipherString)
     return (plainString, time_taken_decrypt)
 
