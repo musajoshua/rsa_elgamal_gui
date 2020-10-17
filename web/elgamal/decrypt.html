@@ -3,11 +3,8 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
-		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
-		/>
+		<title>Decryption | ELGamal Cryptosystem</title>
+		<link rel="stylesheet" href="./../assets/css/materialize.min.css" />
 		<link
 			href="https://fonts.googleapis.com/icon?family=Material+Icons"
 			rel="stylesheet"
@@ -59,36 +56,58 @@
 						<div class="col s6">
 							<div class="input-field col s12">
 								<textarea
-									id="textarea1"
+									id="encrypted_file_view"
 									class="txt_area"
 								></textarea>
 							</div>
 							<div class="input-field col s12">
-								<input
-									class="form-control"
-									onchange="readText(this)"
-									type="file"
-								/>
+								<form
+									enctype="multipart/form-data"
+									method="post"
+								>
+									<input
+										class="form-control"
+										id="encrypted_file"
+										type="file"
+									/>
+								</form>
 							</div>
 						</div>
 						<div class="col s6">
 							<div
 								id="file-holder"
 								class="col s12"
-								style="width: 100%; height: 300px;"
+								style="width: 100%; height: 300px"
 							></div>
-							<a class="waves-effect waves-light btn-large s12"
-								><i class="material-icons right">save_alt</i
-								>Download</a
+							<button
+								onclick="download()"
+								class="waves-effect waves-light btn-large s12"
 							>
+								<i class="material-icons right">save_alt</i
+								>Download
+							</button>
+						</div>
+						<div class="col s12">
+							<textarea
+								placeholder="Enter Private Keys"
+								id="private_key"
+								class="materialize-textarea txt_area1"
+							></textarea>
+						</div>
+						<div class="col s12">
+							<textarea
+								placeholder="Time Taken to Decrypt"
+								id="time_taken_to_decrypt"
+								class="materialize-textarea txt_area1"
+							></textarea>
 						</div>
 						<div class="col s3"></div>
 						<div class="col s6">
 							<button
 								class="waves-effect waves-light btn-large"
-								href="./generate_key.html"
+								onclick="submit()"
 							>
-								Encrypt
+								Decrypt
 							</button>
 						</div>
 						<div class="col s3"></div>
@@ -97,7 +116,10 @@
 			</div>
 		</div>
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script src="./../assets/js/jquery.min.js"></script>
+		<script type="text/javascript" src="/eel.js"></script>
+		<script src="../node_modules/file-saver/src/FileSaver.js"></script>
+		<script src="../fileReader.js"></script>
 		<script src="./decrypt.js"></script>
 	</body>
 </html>

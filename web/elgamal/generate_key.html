@@ -3,11 +3,8 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
-		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
-		/>
+		<title>Generate Key | ELGamal Cryptosystem</title>
+		<link rel="stylesheet" href="./../assets/css/materialize.min.css" />
 		<link
 			href="https://fonts.googleapis.com/icon?family=Material+Icons"
 			rel="stylesheet"
@@ -56,14 +53,14 @@
 						<div class="input-field col s6">
 							<textarea
 								disabled
-								id="textarea1"
+								id="public_key"
 								class="txt_area"
 							></textarea>
 						</div>
 						<div class="input-field col s6">
 							<textarea
 								disabled
-								id="textarea2"
+								id="private_key"
 								class="txt_area"
 							></textarea>
 						</div>
@@ -71,9 +68,12 @@
 					<div class="carde">
 						<div class="col s3"></div>
 						<div class="col s6">
-							<a class="waves-effect waves-light btn-large"
-								>Generate Keys</a
+							<button
+								onclick="submit()"
+								class="waves-effect waves-light btn-large"
 							>
+								Generate Keys
+							</button>
 						</div>
 						<div class="col s3"></div>
 					</div>
@@ -81,7 +81,8 @@
 			</div>
 		</div>
 
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+		<script src="./../assets/js/materialize.min.js"></script>
+		<script type="text/javascript" src="/eel.js"></script>
 		<script src="./generate_key.js"></script>
 	</body>
 </html>
