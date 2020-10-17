@@ -15,24 +15,26 @@ def rsa_key_gen():
 
 # RSA ENCRYPTION
 @eel.expose
-def rsa_encrypt(public_key, plainString):
-    # plainString = binascii.hexlify(file)
+def rsa_encrypt(public_key, message):
+    mime = message.split(",")[0]
+    mess_data = message.split(",")[1]
     n = public_key[0]
     e = public_key[1]
     public_key = (n, e)
-    cipherString, time_taken_encrypt = RSA.encrypt(
-        public_key, plainString)
-    return (cipherString, time_taken_encrypt)
+    cipher, time_taken_encrypt = RSA.encrypt(
+        public_key, mess_data)
+    return (mime + "," + cipher, time_taken_encrypt)
 
 # RSA DECRYPTION
 @eel.expose
-def rsa_decrypt(private_key, cipherString):
-    # plainString = FileReader.readPlainFile(file)
+def rsa_decrypt(private_key, cipher):
+    mime = cipher.split(",")[0]
+    cipher_data = cipher.split(",")[1]
     n = private_key[0]
     d = private_key[1]
     private_key = (n, d)
-    plainString, time_taken_decrypt = RSA.decrypt(private_key, cipherString)
-    return (plainString, time_taken_decrypt)
+    plain, time_taken_decrypt = RSA.decrypt(private_key, cipher_data)
+    return (mime + "," + plain, time_taken_decrypt)
 
 
 eel.start('index.html', size=(1050, 650))

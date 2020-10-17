@@ -1,5 +1,6 @@
 import random
 from time import clock, time
+from .encoding import encode, decode
 
 
 class RSA:
@@ -89,17 +90,19 @@ class RSA:
         # Start Timer
         start_time = time()
         for i, v in enumerate(plainString):
-            # print(v)
             val = pow(ord(v), e, n)
             cipherArray.append(val)
         # End Timer
         end_time = time()
-        cipherString = '-'.join((map(str, cipherArray)))
-        return (cipherString, round((end_time - start_time) * 1000, 4))
+        number_string = '-'.join((map(str, cipherArray)))
+        base64_string = encode(number_string)
+
+        return (base64_string, round((end_time - start_time) * 1000, 4))
 
     @classmethod
     def decrypt(cls, pk, cipherFileString):
-        cipherFileArray = list(map(int, cipherFileString.split("-")))
+        base64_string = decode(cipherFileString)
+        cipherFileArray = list(map(int, base64_string.split("-")))
         n, d = pk
         plain_hex_arr = []
         # Start Timer
