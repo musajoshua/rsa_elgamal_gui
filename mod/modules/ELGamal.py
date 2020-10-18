@@ -1,5 +1,6 @@
 import random
 from time import clock, time
+from .encoding import encode, decode
 
 
 class ELGamal:
@@ -57,7 +58,6 @@ class ELGamal:
         p = 20
         g = 17
         x = cls.gen_a(p)
-        print("x is ", x)
         y = pow(g, x, p)
         # p = random.randint(50, 300)
         # g = random.randint(50, p - 1)
@@ -77,18 +77,24 @@ class ELGamal:
         k = cls.gen_a(p)
         for i, v in enumerate(plainString):
             c1.append(pow(g, k, p))
-            val = (pow(y, k) * v) % p
+            val = (pow(y, k) * ord(v)) % p
             c2.append(val)
         # End Timer
         end_time = time()
         cipherString1 = '-'.join((map(str, c1)))
         cipherString2 = '-'.join((map(str, c2)))
-        return ((cipherString1, cipherString2), round((end_time - start_time) * 1000, 4))
+        cipher_string1_base64_string = encode(cipherString1)
+        cipher_string2_base64_string = encode(cipherString2)
+        return ((cipher_string1_base64_string, cipher_string2_base64_string), round((end_time - start_time) * 1000, 4))
 
     @classmethod
     def decrypt(cls, pri_key, cipherFileString1, cipherFileString2):
-        cipherFileArray1 = list(map(int, cipherFileString1.split("-")))
-        cipherFileArray2 = list(map(int, cipherFileString2.split("-")))
+        cipher_string1_base64_string = decode(cipherFileString1)
+        cipher_string2_base64_string = decode(cipherFileString2)
+        cipherFileArray1 = list(
+            map(int, cipher_string1_base64_string.split("-")))
+        cipherFileArray2 = list(
+            map(int, cipher_string2_base64_string.split("-")))
         p, x = pri_key
         plain_hex_arr = []
         # Start Timer
