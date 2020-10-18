@@ -1,5 +1,6 @@
 import io
 from mod.modules.RSA import RSA
+from mod.modules.ELGamal import ELGamal
 from mod.modules.FileReader import FileReader
 from base64 import b64encode
 import eel
@@ -34,6 +35,38 @@ def rsa_decrypt(private_key, cipher):
     d = private_key[1]
     private_key = (n, d)
     plain, time_taken_decrypt = RSA.decrypt(private_key, cipher_data)
+    return (mime + "," + plain, time_taken_decrypt)
+
+# ELGamal KEY GENERATION
+@eel.expose
+def elgamal_key_gen():
+    pu_key, pr_key = ELGamal.generate_key()
+    return (pu_key, pr_key)
+
+# ELGamal ENCRYPTION
+@eel.expose
+def elgamal_encrypt(public_key, message):
+    mime = message.split(",")[0]
+    mess_data = message.split(",")[1]
+    p = public_key[0]
+    g = public_key[1]
+    y = public_key[2]
+    public_key = (p, g, y)
+    cipher, time_taken_encrypt = ELGamal.encrypt(
+        public_key, mess_data)
+    cipher_string1, cipher_string2 = cipher
+    return (cipher_string1, mime + "," + cipher_string2, time_taken_encrypt)
+
+# ELGamal DECRYPTION
+@eel.expose
+def elgamal_decrypt(private_key, cipher_string1, cipher_string2):
+    mime = cipher_string2.split(",")[0]
+    cipher_data = cipher_string2.split(",")[1]
+    n = private_key[0]
+    d = private_key[1]
+    private_key = (n, d)
+    cipher = cipher_string1, cipher_string2
+    plain, time_taken_decrypt = ELGamal.decrypt(private_key, cipher)
     return (mime + "," + plain, time_taken_decrypt)
 
 
