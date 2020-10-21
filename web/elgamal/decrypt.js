@@ -48,6 +48,7 @@ submit = async () => {
 
 		if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg") {
 			$("<img />", {
+				id: 'plainfile',
 				src: plain_string,
 				width: "100%",
 				height: "100%",
@@ -55,6 +56,7 @@ submit = async () => {
 			file_holder.show();
 		} else if (extn == "mp3" || extn == "flac") {
 			const source = $("<source />", {
+				id: 'plainfile',
 				src: plain_string,
 			});
 			const audio = $("<audio controls />", {
@@ -66,6 +68,7 @@ submit = async () => {
 			file_holder.show();
 		} else if (extn == "mp4" || extn == "mov") {
 			const source = $("<source />", {
+				id: 'plainfile',
 				src: plain_string,
 			});
 			const video = $("<video controls />", {
@@ -82,7 +85,7 @@ submit = async () => {
 };
 
 download = () => {
-	let dataURI = document.getElementById("file-holder").value;
+	let dataURI = document.getElementById("plainfile").src;
 	if (!dataURI) {
 		alert("No file to download");
 		return;
