@@ -55,7 +55,7 @@ def elgamal_encrypt(public_key, message):
     cipher, time_taken_encrypt = ELGamal.encrypt(
         public_key, mess_data)
     cipher_string1, cipher_string2 = cipher
-    return (cipher_string1, mime + "," + cipher_string2, time_taken_encrypt)
+    return (mime + "," + cipher_string1, mime + "," + cipher_string2, time_taken_encrypt)
 
 # ELGamal DECRYPTION
 @eel.expose
