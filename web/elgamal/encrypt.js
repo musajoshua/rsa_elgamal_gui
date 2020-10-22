@@ -109,12 +109,12 @@ download = () => {
 		return;
 	}
 
-	// const [blob1, extn1] = getBlob(dataURI1)
+	const [blob1, extn1] = getBlob(dataURI1)
 	const [blob2, extn2] = getBlob(dataURI2)
 
 	
 
-	saveAs(dataURI1, `enc.txt`);
-	saveAs(blob2, `enc.${extn2}`);
+	saveAs(blob1, `enc1.${extn1}`);
+	saveAs(blob2, `enc2.${extn2}`);
 };
 
