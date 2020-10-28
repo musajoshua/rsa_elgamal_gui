@@ -1,11 +1,33 @@
+# -----------------------------------------------------------
+# RSA Class that Performs the Generation, Encryption and Decryption of a string
+#
+# (C) 2020 Musa Joshua Gideon-Bashir, Abuja, Nigeria
+# Released under MIT Public License
+# email gidijosh@gmail.com
+# -----------------------------------------------------------
+
+
 import random
 from time import clock, time
 from .encoding import encode, decode
 
 
 class RSA:
+    """
+    RSA Class that Performs the Generation, Encryption and Decryption of a string
+    """
     @classmethod
     def gcd(cls, a, b):
+        """finds the gcd of two numbers a and b
+
+        Args:
+            cls (class attribute): Access a class atribute through keyword cls
+            a: integer a 
+            b: integer b 
+
+        Returns:
+            int: gcd of the two numbers
+        """
         if b == 0:
             return a
         else:
@@ -13,6 +35,14 @@ class RSA:
 
     @classmethod
     def if_prime(cls, n):
+        """Checks if a number is a prime or not
+
+        Args:
+            cls (class attribute): Access a class atribute through keyword cls
+
+        Returns:
+            boolean: true or false
+        """
         if (n <= 1):
             return False
         if (n <= 3):
@@ -31,6 +61,16 @@ class RSA:
 
     @classmethod
     def eucliden(cls, e, phi):
+        """finds d, using the extended euclidean algorithm
+
+        Args:
+            cls (class attribute): Access a class atribute through keyword cls
+            e: integer e
+            phi: integer phi
+
+        Returns:
+            int: d
+        """
         x1 = phi
         y1 = phi
         x2 = e
@@ -50,6 +90,15 @@ class RSA:
 
     @classmethod
     def generate_e(cls, phi):
+        """finds e such that 0 < e < phi and the GCD of e and phi is 1.
+
+        Args:
+            cls (class attribute): Access a class atribute through keyword cls
+            phi: integer phi
+
+        Returns:
+            int: e
+        """
         e = random.randint(1, phi)
 
         if(cls.if_prime(e) == False):
@@ -62,12 +111,17 @@ class RSA:
         return e
 
     @classmethod
-    def generate_key(cls):
-        # p = 5062283
-        # q = 6515623
-        # e = 287
-        # d = 11952359793791
+    def generate_keys(cls):
+        """generates the keys
 
+        Args:
+            cls (class attribute): Access a class atribute through keyword cls
+
+        Returns:
+            int: n
+            int: e
+            int: d
+        """
         p = random.randint(100, 1000)
         while cls.if_prime(p) != True:
             p = random.randint(100, 1000)
@@ -77,14 +131,22 @@ class RSA:
         n = p * q
         phi = (p - 1) * (q - 1)
         e = cls.generate_e(phi)
-        # e = 47
-        # d = 103
         d = cls.eucliden(e, phi)
         return ((n, e), (n, d))
 
     @classmethod
-    def encrypt(cls, pk, plainString):
-        n, e = pk
+    def encrypt(cls, pub_key, plainString):
+        """Encrypts a string
+
+        Args:
+            cls (class attribute): Access a class atribute through keyword cls
+            pub_key: Public Key of Elgamal
+            plainString: string to be encrypted
+
+        Returns:
+            str: a string of the encrypted cipher string
+        """
+        n, e = pub_key
 
         cipherArray = []
         # Start Timer
@@ -100,10 +162,20 @@ class RSA:
         return (base64_string, round((end_time - start_time) * 1000, 4))
 
     @classmethod
-    def decrypt(cls, pk, cipherFileString):
+    def decrypt(cls, pri_key, cipherFileString):
+        """Decrypts a string
+
+        Args:
+            cls (class attribute): Access a class atribute through keyword cls
+            pri_key: Private Key of Elgamal
+            cipherFileString: a string of the cipher text 1
+
+        Returns:
+            str: a string of the decrypted text
+        """
         base64_string = decode(cipherFileString)
         cipherFileArray = list(map(int, base64_string.split("-")))
-        n, d = pk
+        n, d = pri_key
         plain_hex_arr = []
         # Start Timer
         start_time = time()
@@ -118,6 +190,15 @@ class RSA:
 
     @classmethod
     def unifyString(cls, fileArray):
+        """Converts an array of number to a string of its respective ascii value
+
+        Args:
+            cls (class attribute): Access a class atribute through keyword cls
+            fileArray: array of integers
+
+        Returns:
+            str: a string consisting of the ascii value of each number in the array
+        """
         string = ''
         for i, v in enumerate(fileArray):
             string = string + chr(v)
