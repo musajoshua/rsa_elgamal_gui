@@ -19,15 +19,14 @@ $(document).ready(function () {
 
 submit = async () => {
 	// get private keys
-	// let private_keys = document.getElementById("private_key").value;
-	// if (!private_keys) {
-	// 	alert("Please Enter Your Public Key");
-	// 	return;
-	// }
-	// const [n, e] = private_keys.split(",");
+	let private_keys = document.getElementById("private_key").value;
+	if (!private_keys) {
+		alert("Please Enter Your Public Key");
+		return;
+	}
+	const [n, e] = private_keys.split(",");
 
-	// private_keys = [parseInt(n), parseInt(e)];
-	let private_keys = [198131, 120013];
+	private_keys = [parseInt(n), parseInt(e)];
 	// get file for encryption
 	let file = document.getElementById("encrypted_file").files[0];
 	if (!file) {
@@ -48,7 +47,7 @@ submit = async () => {
 
 		if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg") {
 			$("<img />", {
-				id: 'plainfile',
+				id: "plainfile",
 				src: plain_string,
 				width: "100%",
 				height: "100%",
@@ -56,7 +55,7 @@ submit = async () => {
 			file_holder.show();
 		} else if (extn == "mp3" || extn == "flac") {
 			const source = $("<source />", {
-				id: 'plainfile',
+				id: "plainfile",
 				src: plain_string,
 			});
 			const audio = $("<audio controls />", {
@@ -68,7 +67,7 @@ submit = async () => {
 			file_holder.show();
 		} else if (extn == "mp4" || extn == "mov") {
 			const source = $("<source />", {
-				id: 'plainfile',
+				id: "plainfile",
 				src: plain_string,
 			});
 			const video = $("<video controls />", {

@@ -54,15 +54,14 @@ $(document).ready(function () {
 
 submit = async () => {
 	// get public keys
-	// let public_keys = document.getElementById("public_key").value;
-	// if (!public_keys) {
-	// 	alert("Please Enter Your Public Key");
-	// 	return;
-	// }
-	// const [n, e] = public_keys.split(",");
+	let public_keys = document.getElementById("public_key").value;
+	if (!public_keys) {
+		alert("Please Enter Your Public Key");
+		return;
+	}
+	const [n, e] = public_keys.split(",");
 
-	// public_keys = [parseInt(n), parseInt(e)];
-	let public_keys = [198131, 5197];
+	public_keys = [parseInt(n), parseInt(e)];
 	// get file for encryption
 	let file = document.getElementById("plain_file").files[0];
 	if (!file) {

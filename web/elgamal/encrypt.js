@@ -54,15 +54,14 @@ $(document).ready(function () {
 
 submit = async () => {
 	// get public keys
-	// let public_keys = document.getElementById("public_key").value;
-	// if (!public_keys) {
-	// 	alert("Please Enter Your Public Key");
-	// 	return;
-	// }
-	// const [n, e] = public_keys.split(",");
+	let public_keys = document.getElementById("public_key").value;
+	if (!public_keys) {
+		alert("Please Enter Your Public Key");
+		return;
+	}
+	const [n, e] = public_keys.split(",");
 
-	// public_keys = [parseInt(n), parseInt(e)];
-	let public_keys = [20, 17, 13];
+	public_keys = [parseInt(n), parseInt(e)];
 	// get file for encryption
 	let file = document.getElementById("plain_file").files[0];
 	if (!file) {
@@ -98,8 +97,8 @@ const getBlob = (dataURI) => {
 		ia[i] = byteString.charCodeAt(i);
 	}
 	let blob = new Blob([ab], { type: mimeString });
-	return [blob, mimeString.split("/")[1]]
-}
+	return [blob, mimeString.split("/")[1]];
+};
 
 download = () => {
 	const dataURI1 = document.getElementById("encrypted_file1").value;
@@ -109,12 +108,9 @@ download = () => {
 		return;
 	}
 
-	const [blob1, extn1] = getBlob(dataURI1)
-	const [blob2, extn2] = getBlob(dataURI2)
-
-	
+	const [blob1, extn1] = getBlob(dataURI1);
+	const [blob2, extn2] = getBlob(dataURI2);
 
 	saveAs(blob1, `enc1.${extn1}`);
 	saveAs(blob2, `enc2.${extn2}`);
 };
-
