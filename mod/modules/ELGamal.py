@@ -1,11 +1,31 @@
+# -----------------------------------------------------------
+# ELGamal Class that Performs the Generation, Encryption and Decryption of a string
+#
+# (C) 2020 Musa Joshua Gideon-Bashir, Abuja, Nigeria
+# Released under MIT Public License
+# email gidijosh@gmail.com
+# -----------------------------------------------------------
+
 import random
 from time import clock, time
 from .encoding import encode, decode
 
 
 class ELGamal:
+    """
+    ELGamal Class
+    """
     @classmethod
     def if_prime(cls, n):
+        """Checks if a number is a prime or not
+
+        Args:
+            cls (class attribute): Access a class atribute through keyword cls
+
+        Returns:
+            boolean: true or false
+        """
+
         if (n <= 1):
             return False
         if (n <= 3):
@@ -24,6 +44,17 @@ class ELGamal:
 
     @classmethod
     def gcd(cls, a, b):
+        """finds the gcd of two numbers a and b
+
+        Args:
+            cls (class attribute): Access a class atribute through keyword cls
+            a: integer a 
+            b: integer b 
+
+        Returns:
+            int: gcd of the two numbers
+        """
+
         if a < b:
             return cls.gcd(b, a)
         elif a % b == 0:
@@ -33,6 +64,16 @@ class ELGamal:
 
     @classmethod
     def modInverse(cls, a, m):
+        """finds the modular inverse of two numbers a and m
+
+        Args:
+            cls (class attribute): Access a class atribute through keyword cls
+            a: integer a 
+            m: integer m 
+
+        Returns:
+            int: the modular inverse of the two numbers
+        """
         a = a % m
         for x in range(1, m):
             if ((a * x) % m == 1):
@@ -40,34 +81,53 @@ class ELGamal:
         return 1
 
     @classmethod
-    def gen_a(cls, q):
-        a = random.randint(1, q-1)
-        while cls.gcd(a, q) != 1:
-            a = random.randint(1, q-1)
+    def gen_a(cls, p):
+        """finds a, a number between 1 and p-2, and is a coprime of p
+
+        Args:
+            cls (class attribute): Access a class atribute through keyword cls
+            p: integer p 
+
+        Returns:
+            int: a
+        """
+        a = random.randint(1, p-1)
+        while cls.gcd(a, p) != 1:
+            a = random.randint(1, p-1)
         return a
 
     @classmethod
     def generate_key(cls):
-        # p = random.randint(50, 300)
-        # while cls.if_prime(p) != True:
-        #     p = random.randint(50, 300)
-        # p = 103
-        # g = 97
-        # x = cls.gen_a(p)
-        # y = pow(g, x, p)
-        p = 20
-        g = 17
+        """generates the keys
+
+        Args:
+            cls (class attribute): Access a class atribute through keyword cls
+
+        Returns:
+            int: p,g,x,y
+        """
+        p = random.randint(50, 300)
+        while cls.if_prime(p) != True:
+            p = random.randint(50, 300)
+        g = random.randint(50, p - 1)
         x = cls.gen_a(p)
         y = pow(g, x, p)
-        # p = random.randint(50, 300)
-        # g = random.randint(50, p - 1)
-        # x = cls.gen_a(p)
-        # y = pow(g, x, p)
 
         return((p, g, y), (p, x))
 
     @classmethod
     def encrypt(cls, pub_key, plainString):
+        """Encrypts a string
+
+        Args:
+            cls (class attribute): Access a class atribute through keyword cls
+            pub_key: Public Key of Elgamal
+            plainString: string to be encrypted
+
+        Returns:
+            str: a string of the encrypted cipher text 1
+            str: a string of the encrypted cipher text 2
+        """
         p, g, y = pub_key
 
         c1 = []
@@ -89,6 +149,17 @@ class ELGamal:
 
     @classmethod
     def decrypt(cls, pri_key, cipherFileString1, cipherFileString2):
+        """Decrypts a string
+
+        Args:
+            cls (class attribute): Access a class atribute through keyword cls
+            pri_key: Private Key of Elgamal
+            cipherFileString1: a string of the cipher text 1
+            cipherFileString2: a string of the cipher text 2
+
+        Returns:
+            str: a string of the decrypted text
+        """
         cipher_string1_base64_string = decode(cipherFileString1)
         cipher_string2_base64_string = decode(cipherFileString2)
         cipherFileArray1 = list(
@@ -117,6 +188,15 @@ class ELGamal:
 
     @classmethod
     def unifyString(cls, fileArray):
+        """Converts an array of number to a string of its respective ascii value
+
+        Args:
+            cls (class attribute): Access a class atribute through keyword cls
+            pri_key: array of integers
+
+        Returns:
+            str: a string consisting of the ascii value of each number in the array
+        """
         string = ''
         for i, v in enumerate(fileArray):
             string = string + chr(v)
