@@ -61,12 +61,13 @@ def elgamal_encrypt(public_key, message):
 @eel.expose
 def elgamal_decrypt(private_key, cipher_string1, cipher_string2):
     mime = cipher_string2.split(",")[0]
-    cipher_data = cipher_string2.split(",")[1]
+    cipher_data1 = cipher_string1.split(",")[1]
+    cipher_data2 = cipher_string2.split(",")[1]
     n = private_key[0]
     d = private_key[1]
     private_key = (n, d)
-    cipher = cipher_string1, cipher_string2
-    plain, time_taken_decrypt = ELGamal.decrypt(private_key, cipher)
+    plain, time_taken_decrypt = ELGamal.decrypt(
+        private_key, cipher_data1, cipher_data2)
     return (mime + "," + plain, time_taken_decrypt)
 
 
