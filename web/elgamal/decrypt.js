@@ -1,16 +1,26 @@
-let fileData;
+let fileData1;
+let fileData2;
 let extn;
 
 $(document).ready(function () {
-	$("#encrypted_file").on("change", async function () {
-		var imgPath = $(this)[0].value;
-		extn = imgPath.substring(imgPath.lastIndexOf(".") + 1).toLowerCase();
-		var file_holder = $("#textarea1");
-		file_holder.empty();
+	$("#enc_file_1").on("change", async function () {
+		var path = $(this)[0].value;
+		extn = path.substring(path.lastIndexOf(".") + 1).toLowerCase();
 		if (typeof FileReader != "undefined") {
-			fileData = await readFile($(this)[0].files[0]);
+			fileData1 = await readFile($(this)[0].files[0]);
 
-			document.getElementById("encrypted_file_view").value = fileData;
+			document.getElementById("encrypted_file1").value = fileData1;
+		} else {
+			alert("This Application does not support FileReader.");
+		}
+	});
+	$("#enc_file_2").on("change", async function () {
+		var path = $(this)[0].value;
+		extn = path.substring(path.lastIndexOf(".") + 1).toLowerCase();
+		if (typeof FileReader != "undefined") {
+			fileData2 = await readFile($(this)[0].files[0]);
+
+			document.getElementById("encrypted_file2").value = fileData2;
 		} else {
 			alert("This Application does not support FileReader.");
 		}
@@ -19,25 +29,26 @@ $(document).ready(function () {
 
 submit = async () => {
 	// get private keys
-	// let private_keys = document.getElementById("private_key").value;
-	// if (!private_keys) {
-	// 	alert("Please Enter Your Public Key");
-	// 	return;
-	// }
-	// const [n, e] = private_keys.split(",");
+	let private_keys = document.getElementById("private_key").value;
+	if (!private_keys) {
+		alert("Please Enter Your Public Key");
+		return;
+	}
+	const [n, e] = private_keys.split(",");
 
-	// private_keys = [parseInt(n), parseInt(e)];
-	let private_keys = [20, 7];
+	private_keys = [parseInt(n), parseInt(e)];
 	// get file for encryption
-	let file = document.getElementById("encrypted_file").files[0];
-	if (!file) {
-		alert("A File must have been selected !");
+	let cipher_string1 = document.getElementById("enc_file_1").files[0];
+	let cipher_string2 = document.getElementById("enc_file_2").files[0];
+	if (!cipher_string1 || !cipher_string2) {
+		alert("Please Select the two cipher files !");
 		return;
 	}
 
 	eel.elgamal_decrypt(
 		private_keys,
-		fileData
+		fileData1,
+		fileData2
 	)((data) => {
 		let plain_string = data[0];
 		let time_taken = data[1];
@@ -48,7 +59,7 @@ submit = async () => {
 
 		if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg") {
 			$("<img />", {
-				id: 'plainfile',
+				id: "plainfile",
 				src: plain_string,
 				width: "100%",
 				height: "100%",
@@ -56,7 +67,7 @@ submit = async () => {
 			file_holder.show();
 		} else if (extn == "mp3" || extn == "flac") {
 			const source = $("<source />", {
-				id: 'plainfile',
+				id: "plainfile",
 				src: plain_string,
 			});
 			const audio = $("<audio controls />", {
@@ -68,7 +79,7 @@ submit = async () => {
 			file_holder.show();
 		} else if (extn == "mp4" || extn == "mov") {
 			const source = $("<source />", {
-				id: 'plainfile',
+				id: "plainfile",
 				src: plain_string,
 			});
 			const video = $("<video controls />", {
