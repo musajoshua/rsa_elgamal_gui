@@ -11,7 +11,7 @@ eel.init('web')
 # RSA KEY GENERATION
 @eel.expose
 def rsa_key_gen():
-    pu_key, pr_key = RSA.generate_key()
+    pu_key, pr_key = RSA.generate_keys()
     return (pu_key, pr_key)
 
 # RSA ENCRYPTION
@@ -40,7 +40,7 @@ def rsa_decrypt(private_key, cipher):
 # ELGamal KEY GENERATION
 @eel.expose
 def elgamal_key_gen():
-    pu_key, pr_key = ELGamal.generate_key()
+    pu_key, pr_key = ELGamal.generate_keys()
     return (pu_key, pr_key)
 
 # ELGamal ENCRYPTION
