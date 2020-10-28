@@ -13,7 +13,7 @@ from .encoding import encode, decode
 
 class ELGamal:
     """
-    ELGamal Class
+    ELGamal Class that Performs the Generation, Encryption and Decryption of a string
     """
     @classmethod
     def if_prime(cls, n):
@@ -97,14 +97,17 @@ class ELGamal:
         return a
 
     @classmethod
-    def generate_key(cls):
+    def generate_keys(cls):
         """generates the keys
 
         Args:
             cls (class attribute): Access a class atribute through keyword cls
 
         Returns:
-            int: p,g,x,y
+            int: p
+            int: g
+            int: x
+            int: y
         """
         p = random.randint(50, 300)
         while cls.if_prime(p) != True:
@@ -125,8 +128,8 @@ class ELGamal:
             plainString: string to be encrypted
 
         Returns:
-            str: a string of the encrypted cipher text 1
-            str: a string of the encrypted cipher text 2
+            str: a string of the encrypted cipher string 1
+            str: a string of the encrypted cipher string 2
         """
         p, g, y = pub_key
 
@@ -154,11 +157,11 @@ class ELGamal:
         Args:
             cls (class attribute): Access a class atribute through keyword cls
             pri_key: Private Key of Elgamal
-            cipherFileString1: a string of the cipher text 1
-            cipherFileString2: a string of the cipher text 2
+            cipherFileString1: a string of the cipher string 1
+            cipherFileString2: a string of the cipher string 2
 
         Returns:
-            str: a string of the decrypted text
+            str: a string of the decrypted string
         """
         cipher_string1_base64_string = decode(cipherFileString1)
         cipher_string2_base64_string = decode(cipherFileString2)
@@ -192,7 +195,7 @@ class ELGamal:
 
         Args:
             cls (class attribute): Access a class atribute through keyword cls
-            pri_key: array of integers
+            fileArray: array of integers
 
         Returns:
             str: a string consisting of the ascii value of each number in the array
