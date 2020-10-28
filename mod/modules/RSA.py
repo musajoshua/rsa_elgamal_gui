@@ -156,7 +156,7 @@ class RSA:
             cipherArray.append(val)
         # End Timer
         end_time = time()
-        number_string = '-'.join((map(str, cipherArray)))
+        number_string = "-".join((map(str, cipherArray)))
         base64_string = encode(number_string)
 
         return (base64_string, round((end_time - start_time) * 1000, 4))
@@ -199,7 +199,7 @@ class RSA:
         Returns:
             str: a string consisting of the ascii value of each number in the array
         """
-        string = ''
+        string = ""
         for i, v in enumerate(fileArray):
             string = string + chr(v)
         return string

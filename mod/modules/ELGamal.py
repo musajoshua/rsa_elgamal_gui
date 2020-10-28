@@ -144,8 +144,8 @@ class ELGamal:
             c2.append(val)
         # End Timer
         end_time = time()
-        cipherString1 = '-'.join((map(str, c1)))
-        cipherString2 = '-'.join((map(str, c2)))
+        cipherString1 = "-".join((map(str, c1)))
+        cipherString2 = "-".join((map(str, c2)))
         cipher_string1_base64_string = encode(cipherString1)
         cipher_string2_base64_string = encode(cipherString2)
         return ((cipher_string1_base64_string, cipher_string2_base64_string), round((end_time - start_time) * 1000, 4))
@@ -200,7 +200,7 @@ class ELGamal:
         Returns:
             str: a string consisting of the ascii value of each number in the array
         """
-        string = ''
+        string = ""
         for i, v in enumerate(fileArray):
             string = string + chr(v)
         return string
